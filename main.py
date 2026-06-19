@@ -33,10 +33,10 @@ try:
         pygame.event.pump()
 
         steering = int(np.interp(wheel.get_axis(0),[-1,1],[0,180]))
-        if int(np.interp(wheel.get_axis(2), [-1, 1], [255, 0])) > 1:
+        if int(np.interp(wheel.get_axis(2), [-1, 1], [255, 0])) > 10:
             gas = int(np.interp(wheel.get_axis(2), [-1, 1], [255,0]))
             gear = 2
-        elif int(np.interp(wheel.get_axis(1), [-1, 1], [255, 0])) > 1:
+        elif int(np.interp(wheel.get_axis(1), [-1, 1], [255, 0])) > 10:
             gas = int(np.interp(wheel.get_axis(1), [-1, 1], [255, 0]))
             gear = 1
         else:
