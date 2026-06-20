@@ -4,6 +4,7 @@ import serial
 import time
 import numpy as np
 
+#initialize pygame and wheel
 pygame.init()
 pygame.joystick.init()
 
@@ -18,6 +19,7 @@ print(f"connected to: {wheel.get_name()}")
 ESP32_PORT = 'COM5'
 BAUD_RATE = 115200
 
+#open Serial port to ESP32
 try:
     ser = serial.Serial(ESP32_PORT, BAUD_RATE, timeout=0.1)
     time.sleep(2)
@@ -32,19 +34,26 @@ try:
     while True:
         pygame.event.pump()
 
+        #read wheel and map to 0-180
         steering = int(np.interp(wheel.get_axis(0),[-1,1],[0,180]))
+
+        #if brake pedal value is above deadzone
         if int(np.interp(wheel.get_axis(2), [-1, 1], [255, 0])) > 10:
+            #set throttle value and gear
             gas = int(np.interp(wheel.get_axis(2), [-1, 1], [255,0]))
             gear = 2
+        #else if gas pedal value is above deadzone
         elif int(np.interp(wheel.get_axis(1), [-1, 1], [255, 0])) > 10:
+            #set throttle value and gear
             gas = int(np.interp(wheel.get_axis(1), [-1, 1], [255, 0]))
             gear = 1
+        #otherwise, stop car
         else:
             gas = 0
             gear = 0
 
+        #create and send packet
         data_packet = f"{steering},{gas},{gear}\n"
-
         ser.write(data_packet.encode('utf-8'))
         print(f"Sent: {data_packet.strip()}")
 
