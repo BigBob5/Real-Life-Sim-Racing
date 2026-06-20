@@ -1,6 +1,7 @@
 import sys
 import pygame
 
+#initialize pygame and wheel
 pygame.init()
 pygame.joystick.init()
 
@@ -17,8 +18,9 @@ num_axes = wheel.get_numaxes()
 try:
     while True:
         pygame.event.pump()
-
+        
         output_parts = []
+        #for every axis available print its value
         for i in range(num_axes):
             val = round(wheel.get_axis(i), 2)
             output_parts.append(f"Axis {i}: {val}")
