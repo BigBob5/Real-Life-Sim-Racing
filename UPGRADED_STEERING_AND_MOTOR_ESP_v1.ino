@@ -66,7 +66,7 @@ void loop() {
     lastPacketTime = millis();
     //move steering servo
     Steering.write(incomingData.steerValue);
-    // Set drive mode based on gear (This gear functionality lets you update shifting methods easily in Python)
+    // Set drive mode based on gear
     if(incomingData.driveMode==1)
     {
       Drive = true;
