@@ -1,8 +1,9 @@
 #include <esp_now.h>
 #include <WiFi.h>
 
-//MAC address of the car receiver
-uint8_t broadcastAddress[] = {0x84, 0x1F, 0xE8, 0x38, 0xC3, 0x70};
+//MAC address of the car receiver   REPLACE WITH YOUR RECEIVER MAC ADDRESS
+uint8_t broadcastAddress[] = {0x00, 0x00, 0x00, 0x00, 0x00, 0x00};  
+//       EXAMPLE 123456789876 0x12, 0x34, 0x56, 0x78, 0x98, 0x76
 
 //structure of the data packet to send
 struct PacketData { 
